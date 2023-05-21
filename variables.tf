@@ -34,7 +34,7 @@ variable "preferred_backup_window" {
 
   validation {
     condition     = can(regex("^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$", var.preferred_backup_window))
-    error_message = "The specified format is invalid. Syntax: \"hh24:mi-hh24:mi\""
+    error_message = "The specified format is invalid. Syntax: `hh24:mi-hh24:mi`."
   }
 }
 variable "apply_immediately" {
@@ -62,7 +62,7 @@ variable "preferred_maintenance_window" {
 
   validation {
     condition     = can(regex("^(sun|mon|tue|wed|thu|fri|sat):[0-2][0-9]:[0-5][0-9]-(sun|mon|tue|wed|thu|fri|sat):[0-2][0-9]:[0-5][0-9]$", var.preferred_maintenance_window))
-    error_message = "The specified format is invalid. Syntax: \"ddd:hh24:mi-ddd:hh24:mi\""
+    error_message = "The specified format is invalid. Syntax: `ddd:hh24:mi-ddd:hh24:mi`."
   }
 }
 variable "skip_final_snapshot" {
@@ -110,10 +110,12 @@ variable "parameter_group_family" {
 variable "parameter_group_parameter_overrides_immediately" {
   description = "Map of parameters to override default values."
   type        = map(string)
+  default     = {}
 }
 variable "parameter_group_parameter_overrides_on_reboot" {
   description = "Map of parameters to override default values."
   type        = map(string)
+  default     = {}
 }
 
 # db subnet
