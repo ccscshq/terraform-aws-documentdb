@@ -8,13 +8,25 @@ resource "aws_security_group" "this" {
   }
 }
 
-resource "aws_security_group_rule" "ingress" {
+resource "aws_security_group_rule" "ingress_cidr_blocks" {
+  count = length(var.allowed_cidr_blocks) > 0 ? 1 : 0
+
   security_group_id = aws_security_group.this.id
   type              = "ingress"
-  from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
-  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = var.port
+  to_port           = var.port
+  protocol          = "tcp"
+  cidr_blocks       = var.allowed_cidr_blocks
+}
+resource "aws_security_group_rule" "ingress_security_groups" {
+  count = length(var.allowed_security_group_ids)
+
+  security_group_id        = aws_security_group.this.id
+  type                     = "ingress"
+  from_port                = var.port
+  to_port                  = var.port
+  protocol                 = "tcp"
+  source_security_group_id = var.allowed_security_group_ids[count.index]
 }
 
 resource "aws_security_group_rule" "egress" {

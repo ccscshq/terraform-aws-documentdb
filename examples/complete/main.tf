@@ -43,4 +43,7 @@ module "docdb" {
 
   private_subnet_ids = module.network.private_subnet_ids
   vpc_id             = module.network.vpc_id
+
+  allowed_cidr_blocks        = ["0.0.0.0/0"]
+  allowed_security_group_ids = []
 }

@@ -125,3 +125,16 @@ variable "private_subnet_ids" {
   description = "List of the subnet IDs to associate with these DB instances."
   type        = list(string)
 }
+
+# security group
+variable "allowed_cidr_blocks" {
+  description = "Allow inbound ingress trafic from these cidr blocks."
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "allowed_security_group_ids" {
+  description = "Allow inbound ingress trafic from these security groups."
+  type        = list(string)
+  default     = []
+}
